@@ -12,7 +12,20 @@
           "package_name": "com.example.kotlinquiz"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "329025869955-6nociefenr1u4vuqn5gs10dp1fglni2m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kotlinquiz",
+            "certificate_hash": "92d2bddb34e157ef3c3e08da1bf5d9fe040bf540"
+          }
+        },
+        {
+          "client_id": "329025869955-ic7l8lgj2jp5b7lsubq6501kcgaau93k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCgcbbQYB_2mLFo8UBpGJUFSGBe3gcm4J0"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "329025869955-ic7l8lgj2jp5b7lsubq6501kcgaau93k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
