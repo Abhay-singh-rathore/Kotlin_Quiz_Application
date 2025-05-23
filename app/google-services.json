@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "329025869955",
+    "project_id": "kotlin-quiz-application",
+    "storage_bucket": "kotlin-quiz-application.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:329025869955:android:7b2a5c31125a9c5b2623b6",
+        "android_client_info": {
+          "package_name": "com.example.kotlinquiz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgcbbQYB_2mLFo8UBpGJUFSGBe3gcm4J0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
