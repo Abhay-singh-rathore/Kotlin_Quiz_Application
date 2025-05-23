@@ -9,14 +9,14 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.kotlinquiz.databinding.ActivitySplashBinding
 
 class splashActivity : baseActivity() {
-    lateinit var binding: ActivitySplashBinding
+    private lateinit var binding: ActivitySplashBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.apply {
             startbtn.setOnClickListener {
-                startActivity(Intent(this@splashActivity, MainActivity::class.java))
+                startActivity(Intent(this@splashActivity, LoginActivity::class.java))
                 finish()
             }
         }

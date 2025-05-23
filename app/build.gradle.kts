@@ -51,4 +51,10 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    // Firebase Authentication with Kotlin Extensions
+    implementation("com.google.firebase:firebase-auth-ktx:22.3.1")
+
+    // Google Play Services Auth (for Google Sign-In)
+    implementation("com.google.android.gms:play-services-auth:21.1.1")
+
 }
