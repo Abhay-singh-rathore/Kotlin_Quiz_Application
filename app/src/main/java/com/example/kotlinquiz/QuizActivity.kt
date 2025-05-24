@@ -1,5 +1,6 @@
 package com.example.kotlinquiz
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.kotlinquiz.databinding.ActivityQuizBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -36,10 +38,14 @@ class QuizActivity : AppCompatActivity() {
     var userWrong = 0
 
     lateinit var  timer: CountDownTimer
-    private val totalTime = 25000L
+    private val totalTime = 90000L
     var timerContinue =false
     var leftTime = totalTime
 
+
+    val auth =FirebaseAuth.getInstance()
+    var user =auth.currentUser
+    val scoreRef =database.reference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +70,7 @@ class QuizActivity : AppCompatActivity() {
         }
 
         quizBinding.buttonFinish.setOnClickListener {
-
+            sendScore()
 
         }
 
@@ -239,7 +245,7 @@ class QuizActivity : AppCompatActivity() {
     private fun startTimer(){
         timer= object : CountDownTimer(leftTime,1000){
             override fun onTick(millisUntilFinish : Long) {
-                leftTime=millisUntilFinish
+                leftTime = millisUntilFinish
                 updateCountDownText()
             }
 
@@ -270,14 +276,28 @@ class QuizActivity : AppCompatActivity() {
     fun pauseTimer(){
 
         timer.cancel()
-
         timerContinue = false
 
     }
 
     fun resetTimer(){
      pauseTimer()
-        leftTime=totalTime
+        leftTime = totalTime
         updateCountDownText()
+    }
+
+    fun sendScore(){
+        user?.let {
+            val userUID =it.uid
+            scoreRef.child("scores").child(userUID).child("corrrect").setValue(userCorrect)
+            scoreRef.child("scores").child(userUID).child("wrong").setValue(userWrong).addOnSuccessListener {
+                Toast.makeText(applicationContext,"Scorces data sent succesfully to database",Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(this@QuizActivity,ResultActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+
     }
 }
