@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -192,7 +193,20 @@ class QuizActivity : AppCompatActivity() {
 
 
                 } else{
-                    Toast.makeText(applicationContext,"You answered all the questions",Toast.LENGTH_SHORT).show()
+                    val dialogMessage = AlertDialog.Builder(this@QuizActivity)
+                    dialogMessage.setTitle(" QUIZ ")
+                    dialogMessage.setMessage("Congratulation!!! \n You have answered all question . Do you want to see the result?")
+                dialogMessage.setCancelable(false)
+                dialogMessage.setPositiveButton("see Result"){dialogWindow,position ->
+                    sendScore()
+                }
+                    dialogMessage.setNegativeButton("Answer Again"){dialogwindow,position ->
+                        val intent=Intent(this@QuizActivity,MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+
+                    dialogMessage.create().show()
                 }
 
 
