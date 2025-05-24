@@ -16,7 +16,7 @@
 
     <!-- Black Line (thin path on the diagonal) -->
     <path
-        android:fillColor="#FFFFFF"
+        android:fillColor="@color/darkGreen"
         android:strokeColor="#FFFFFF"
         android:strokeWidth="0.5"
         android:pathData="M0,90 L100,0" />
