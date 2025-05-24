@@ -1,6 +1,8 @@
 package com.example.kotlinquiz
 
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -25,9 +27,12 @@ class QuizActivity : AppCompatActivity() {
        var answerC=""
        var answerD=""
        var correctAnswer=""
-      var questionCount= 0
+      var questionCount= 1
     var questionNumber=1
 
+    var userAnswer =""
+    var userCorrect=0
+    var userWrong = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,16 +54,84 @@ class QuizActivity : AppCompatActivity() {
 
         }
 
-        quizBinding.textViewA.setOnClickListener {  }
+        quizBinding.textViewA.setOnClickListener {
 
-        quizBinding.textViewB.setOnClickListener {  }
+            userAnswer= "a"
 
-        quizBinding.textViewC.setOnClickListener {  }
+            if (correctAnswer == userAnswer){
+                quizBinding.textViewA.setBackgroundColor(Color.GREEN)
+                userCorrect++
+                quizBinding.textViewCorrect.text=userCorrect.toString()
 
-        quizBinding.textViewD.setOnClickListener {  }
+            } else{
+                quizBinding.textViewA.setBackgroundColor(Color.RED)
+                userWrong++
+                quizBinding.textViewWrong.text =userWrong.toString()
+                findAnswer()
+            }
+            disableClicableOfOptions()
+        }
+
+        quizBinding.textViewB.setOnClickListener {
+            userAnswer="b"
+
+            if (correctAnswer == userAnswer){
+                quizBinding.textViewB.setBackgroundColor(Color.GREEN)
+                userCorrect++
+                quizBinding.textViewCorrect.text=userCorrect.toString()
+
+            } else{
+                quizBinding.textViewB.setBackgroundColor(Color.RED)
+                userWrong++
+                quizBinding.textViewWrong.text =userWrong.toString()
+                findAnswer()
+            }
+
+            disableClicableOfOptions()
+        }
+
+        quizBinding.textViewC.setOnClickListener {
+            userAnswer="c"
+
+            if (correctAnswer == userAnswer){
+                quizBinding.textViewC.setBackgroundColor(Color.GREEN)
+                userCorrect++
+                quizBinding.textViewCorrect.text=userCorrect.toString()
+
+            } else{
+                quizBinding.textViewC.setBackgroundColor(Color.RED)
+                userWrong++
+                quizBinding.textViewWrong.text =userWrong.toString()
+                findAnswer()
+            }
+            disableClicableOfOptions()
+
+        }
+
+        quizBinding.textViewD.setOnClickListener {
+
+            userAnswer="d"
+
+            if (correctAnswer == userAnswer){
+                quizBinding.textViewD.setBackgroundColor(Color.GREEN)
+                userCorrect++
+                quizBinding.textViewCorrect.text=userCorrect.toString()
+
+            } else{
+                quizBinding.textViewD.setBackgroundColor(Color.RED)
+                userWrong++
+                quizBinding.textViewWrong.text =userWrong.toString()
+                findAnswer()
+            }
+            disableClicableOfOptions()
+        }
+
+
     }
 
     private fun gameLogic(){
+
+        restoreOptoins()
 
 
         databaseReference.addValueEventListener(object : ValueEventListener {
@@ -73,7 +146,8 @@ class QuizActivity : AppCompatActivity() {
                     answerB=snapshot.child(questionNumber.toString()).child("b").value.toString()
                     answerC=snapshot.child(questionNumber.toString()).child("c").value.toString()
                     answerD=snapshot.child(questionNumber.toString()).child("d").value.toString()
-                    correctAnswer=snapshot.child(questionNumber.toString()).child("answer").value.toString()
+                    correctAnswer=snapshot.child(questionNumber.toString()).child("answer").value.toString().trim().lowercase()
+
 
                     quizBinding.textViewQuestion.text= question
                     quizBinding.textViewA.text =answerA
@@ -92,7 +166,11 @@ class QuizActivity : AppCompatActivity() {
                 }
 
 
-             questionNumber++
+                quizBinding.buttonNext.setOnClickListener {
+                    questionNumber++
+                    gameLogic()
+                }
+
 
             }
 
@@ -101,5 +179,36 @@ class QuizActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    fun findAnswer(){
+        when(correctAnswer){
+            "a" -> quizBinding.textViewA.setBackgroundColor(Color.GREEN)
+            "b" -> quizBinding.textViewB.setBackgroundColor(Color.GREEN)
+            "c" -> quizBinding.textViewC.setBackgroundColor(Color.GREEN)
+            "d" -> quizBinding.textViewD.setBackgroundColor(Color.GREEN)
+
+
+
+        }
+    }
+
+    fun disableClicableOfOptions(){
+        quizBinding.textViewA.isClickable = false
+        quizBinding.textViewB.isClickable = false
+        quizBinding.textViewC.isClickable = false
+        quizBinding.textViewD.isClickable = false
+    }
+
+    fun restoreOptoins(){
+        quizBinding.textViewA.setBackgroundColor(Color.WHITE)
+        quizBinding.textViewB.setBackgroundColor(Color.WHITE)
+        quizBinding.textViewC.setBackgroundColor(Color.WHITE)
+        quizBinding.textViewD.setBackgroundColor(Color.WHITE)
+
+        quizBinding.textViewA.isClickable=true
+        quizBinding.textViewB.isClickable=true
+        quizBinding.textViewC.isClickable=true
+        quizBinding.textViewD.isClickable=true
     }
 }
