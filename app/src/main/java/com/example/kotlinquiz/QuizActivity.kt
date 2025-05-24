@@ -2,6 +2,7 @@ package com.example.kotlinquiz
 
 import android.graphics.Color
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -27,12 +28,17 @@ class QuizActivity : AppCompatActivity() {
        var answerC=""
        var answerD=""
        var correctAnswer=""
-      var questionCount= 1
+      var questionCount=0
     var questionNumber=1
 
     var userAnswer =""
     var userCorrect=0
     var userWrong = 0
+
+    lateinit var  timer: CountDownTimer
+    private val totalTime = 25000L
+    var timerContinue =false
+    var leftTime = totalTime
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,17 +50,26 @@ class QuizActivity : AppCompatActivity() {
 
         gameLogic()
 
+
+
+        quizBinding.buttonNext.setOnClickListener {
+
+
+            resetTimer()
+
+
+            gameLogic()
+
+
+        }
+
         quizBinding.buttonFinish.setOnClickListener {
 
 
         }
 
-        quizBinding.buttonNext.setOnClickListener {
-            gameLogic()
-
-        }
-
         quizBinding.textViewA.setOnClickListener {
+            pauseTimer()
 
             userAnswer= "a"
 
@@ -73,6 +88,7 @@ class QuizActivity : AppCompatActivity() {
         }
 
         quizBinding.textViewB.setOnClickListener {
+            pauseTimer()
             userAnswer="b"
 
             if (correctAnswer == userAnswer){
@@ -91,6 +107,8 @@ class QuizActivity : AppCompatActivity() {
         }
 
         quizBinding.textViewC.setOnClickListener {
+
+            pauseTimer()
             userAnswer="c"
 
             if (correctAnswer == userAnswer){
@@ -109,7 +127,7 @@ class QuizActivity : AppCompatActivity() {
         }
 
         quizBinding.textViewD.setOnClickListener {
-
+                pauseTimer()
             userAnswer="d"
 
             if (correctAnswer == userAnswer){
@@ -132,6 +150,8 @@ class QuizActivity : AppCompatActivity() {
     private fun gameLogic(){
 
         restoreOptoins()
+
+
 
 
         databaseReference.addValueEventListener(object : ValueEventListener {
@@ -159,6 +179,10 @@ class QuizActivity : AppCompatActivity() {
                     quizBinding.linearlayoutInfo.visibility=View.VISIBLE
                     quizBinding.linearLayoutQuestion.visibility=View.VISIBLE
                     quizBinding.linearLayoutButton.visibility=View.VISIBLE
+
+
+                    startTimer()
+
 
 
                 } else{
@@ -210,5 +234,50 @@ class QuizActivity : AppCompatActivity() {
         quizBinding.textViewB.isClickable=true
         quizBinding.textViewC.isClickable=true
         quizBinding.textViewD.isClickable=true
+    }
+
+    private fun startTimer(){
+        timer= object : CountDownTimer(leftTime,1000){
+            override fun onTick(millisUntilFinish : Long) {
+                leftTime=millisUntilFinish
+                updateCountDownText()
+            }
+
+            override fun onFinish() {
+
+               disableClicableOfOptions()
+
+                resetTimer()
+                updateCountDownText()
+
+
+                quizBinding.textViewQuestion.text = " Sorry, Time is Up!"
+                timerContinue = false
+            }
+
+        }.start()
+
+        timerContinue = true
+    }
+
+    fun updateCountDownText(){
+
+        val remainingTime : Int = (leftTime/1000).toInt()
+        quizBinding.textViewtime.text =remainingTime.toString()
+
+    }
+
+    fun pauseTimer(){
+
+        timer.cancel()
+
+        timerContinue = false
+
+    }
+
+    fun resetTimer(){
+     pauseTimer()
+        leftTime=totalTime
+        updateCountDownText()
     }
 }
