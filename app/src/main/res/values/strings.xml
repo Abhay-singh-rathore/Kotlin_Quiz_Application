@@ -4,5 +4,10 @@
     <string name="forgot_password"><u>I forgot my password </u> </string>
     <string name="consult_only_with_a_ndoctor_you_trust">Every question is a chance to <font color="#1FC29D">\nLearn Something New </font></string>
     <string name="quiz_icon">Quiz Icon</string>
+    <string name="reset_icon">Reset Icon</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="enter_your_registered_email_to_receive_reset_instructions">Enter your registered email to receive reset instructions.</string>
+    <string name="email">Email</string>
+    <string name="reset_password1">Reset Password</string>
 
 </resources>
