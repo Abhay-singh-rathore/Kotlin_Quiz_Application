@@ -91,7 +91,8 @@ class QuizActivity : AppCompatActivity() {
             userAnswer= "a"
 
             if (correctAnswer == userAnswer){
-                quizBinding.textViewA.setBackgroundColor(Color.GREEN)
+                quizBinding.textViewA.setBackgroundColor(Color.RED)
+
                 userCorrect++
                 quizBinding.textViewCorrect.text=userCorrect.toString()
 
@@ -110,6 +111,7 @@ class QuizActivity : AppCompatActivity() {
 
             if (correctAnswer == userAnswer){
                 quizBinding.textViewB.setBackgroundColor(Color.GREEN)
+
                 userCorrect++
                 quizBinding.textViewCorrect.text=userCorrect.toString()
 
@@ -130,6 +132,7 @@ class QuizActivity : AppCompatActivity() {
 
             if (correctAnswer == userAnswer){
                 quizBinding.textViewC.setBackgroundColor(Color.GREEN)
+
                 userCorrect++
                 quizBinding.textViewCorrect.text=userCorrect.toString()
 

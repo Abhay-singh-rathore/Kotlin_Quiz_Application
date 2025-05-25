@@ -25,6 +25,12 @@ class ResultActivity : AppCompatActivity() {
 
     var userCorrect =""
     var userWrong=""
+    var userPercents= ""
+    var userfloatscore:Double=0.0
+    var userscore= 0
+    var userAccuracy= 0
+
+    var userAccuracy2=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +49,18 @@ class ResultActivity : AppCompatActivity() {
                     userWrong = snapshot.child(userUID).child("wrong").value.toString().trim().lowercase()
                     resultBinding.textViewScoreCorrect.text = userCorrect.toString().trim().lowercase()
                     resultBinding.textViewScoreWrong.text = userWrong.toString().trim().lowercase()
+                    val correct = userCorrect.toIntOrNull() ?: 0
+                    val wrong = userWrong.toIntOrNull() ?: 0
+                    val total = correct + wrong
+
+                    if (total > 0) {
+                        val accuracy = (correct.toDouble() / total.toDouble()) * 100
+                        val formattedAccuracy = String.format("%.1f", accuracy)  // One decimal place
+                        resultBinding.textViewPercentage.text = "$formattedAccuracy%"
+                    } else {
+                        resultBinding.textViewPercentage.text = "Your Score: N/A"
+                    }
+
 
 
                 }

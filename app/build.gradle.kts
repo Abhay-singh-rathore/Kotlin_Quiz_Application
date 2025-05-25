@@ -51,9 +51,12 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation("androidx.cardview:cardview:1.0.0")
+
     // Firebase Authentication with Kotlin Extensions
     implementation("com.google.firebase:firebase-auth-ktx:22.3.1")
 
